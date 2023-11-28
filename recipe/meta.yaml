@@ -11,7 +11,7 @@ source:
 
 build:
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
   number: 0
 
 requirements:
@@ -19,6 +19,7 @@ requirements:
     - pip
     - python >=3.9
     - setuptools-scm
+    - wheel
   run:
     - asdf >=2.13
     - asdf-coordinates-schemas >=0.1
@@ -37,6 +38,7 @@ test:
   requires:
     - pytest-astropy
     - scipy
+    - pip
 
 about:
   home: https://github.com/astropy/asdf-astropy
@@ -45,7 +47,12 @@ about:
   license_file: LICENSE.rst
 
 extra:
+  extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/42309
+    reason: Dependency for asdf
   recipe-maintainers:
+    - ianaobi
     - jhunkeler
     - WilliamJamieson
     - braingram
